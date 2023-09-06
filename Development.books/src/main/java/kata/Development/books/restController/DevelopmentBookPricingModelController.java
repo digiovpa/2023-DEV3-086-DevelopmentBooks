@@ -12,7 +12,6 @@ public class DevelopmentBookPricingModelController {
     public BigDecimal computeDevelopmentBookBasketPrice(final Map<DevelopmentBook, Integer> developmentBookBasketMap) {
         BigDecimal finalPrice = new BigDecimal(BigInteger.ZERO);
         final List<Integer> developmentBooksQuantity = new ArrayList<>(developmentBookBasketMap.values().stream().sorted(Comparator.reverseOrder()).toList());
-
         List<Integer> tempDevelopmentBooksQuantity = new ArrayList<>();
 
         for (int i = 1; i <= developmentBooksQuantity.get(0); i++) {

@@ -60,17 +60,16 @@ class ApplicationTests {
 	}
 	@Test
 	public void developmentBooksWithoutDuplicatesComputePriceTest() {
-		/*List<DevelopmentBook> developmentBookBasket = new ArrayList<>();
-		developmentBookBasket.add(cleanCode);
-		developmentBookBasket.add(cleanCoder);
-		developmentBookBasket.add(cleanArchitecture);
-		developmentBookBasket.add(testDrivenDevelopmentByExample);
-		developmentBookBasket.add(workingEffectivelyWithLegacyCode);
+		developmentBookBasketMap.put(cleanCode, 1);
+		developmentBookBasketMap.put(cleanCoder, 1);
+		developmentBookBasketMap.put(cleanArchitecture, 1);
+		developmentBookBasketMap.put(testDrivenDevelopmentByExample, 1);
+		developmentBookBasketMap.put(workingEffectivelyWithLegacyCode, 1);
 
 		BigDecimal expectedPrice = new BigDecimal("187.50");
 
-		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasket);
-		assertEquals(finalPrice, expectedPrice);*/
+		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+		assertEquals(expectedPrice, finalPrice);
 	}
 
 
