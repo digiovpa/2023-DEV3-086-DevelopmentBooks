@@ -12,36 +12,40 @@ public class DevelopmentBookPricingModelController {
     public BigDecimal computeDevelopmentBookBasketPrice(final Map<DevelopmentBook, Integer> developmentBookBasketMap) {
         BigDecimal finalPrice = new BigDecimal(BigInteger.ZERO);
         final List<Integer> developmentBooksQuantity = new ArrayList<>(developmentBookBasketMap.values().stream().sorted(Comparator.reverseOrder()).toList());
-        List<Integer> tempDevelopmentBooksQuantity = new ArrayList<>();
+        final boolean areDuplicatesPresent = developmentBooksQuantity.stream().anyMatch(q -> q > 1);
 
-        for (int i = 1; i <= developmentBooksQuantity.get(0); i++) {
-            ListIterator<Integer> iterator = developmentBooksQuantity.listIterator();
-            while (iterator.hasNext()) {
-                Integer currentValue = iterator.next();
-                if (currentValue > 1 && currentValue - i >= 0) {
-                    tempDevelopmentBooksQuantity.add(currentValue);
-                } else if (currentValue <= 1) {
-                    iterator.remove();
-                    tempDevelopmentBooksQuantity.add(0);
-                    break;
-                } else {
-                    iterator.remove();
-                    break;
+        if (areDuplicatesPresent) {
+            List<Integer> tempDevelopmentBooksQuantity = new ArrayList<>();
+
+            for (int i = 1; i <= developmentBooksQuantity.get(0); i++) {
+                ListIterator<Integer> iterator = developmentBooksQuantity.listIterator();
+                while (iterator.hasNext()) {
+                    Integer currentValue = iterator.next();
+                    if (currentValue > 1 && currentValue - i >= 0) {
+                        tempDevelopmentBooksQuantity.add(currentValue);
+                    } else if (currentValue <= 1) {
+                        iterator.remove();
+                        tempDevelopmentBooksQuantity.add(0);
+                        break;
+                    } else {
+                        iterator.remove();
+                        break;
+                    }
                 }
+                finalPrice = computePriceWithDiscount(tempDevelopmentBooksQuantity, finalPrice);
+                tempDevelopmentBooksQuantity.clear();
             }
-            finalPrice = applyDiscount(tempDevelopmentBooksQuantity, finalPrice);
-            tempDevelopmentBooksQuantity.clear();
+        } else {
+            return computePriceWithDiscount(developmentBooksQuantity, finalPrice);
         }
-
         return finalPrice;
     }
-
 
     private BigDecimal percentage(final BigDecimal base, final BigDecimal percent){
         return base.multiply(percent).divide(new BigDecimal(100), 2, RoundingMode.CEILING);
     }
 
-    private BigDecimal applyDiscount (final List<Integer> consideredDevelopmentBooks, BigDecimal finalPrice) {
+    private BigDecimal computePriceWithDiscount (final List<Integer> consideredDevelopmentBooks, BigDecimal finalPrice) {
         BigDecimal developmentBookPrice = new BigDecimal(50);
         switch (consideredDevelopmentBooks.size()) {
             case 1 -> {
