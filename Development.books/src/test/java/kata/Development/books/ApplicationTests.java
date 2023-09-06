@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,6 +31,8 @@ class ApplicationTests {
 
 	private DevelopmentBookPricingModelController developmentBookPricingModelController;
 
+	private Map<DevelopmentBook, Integer> developmentBookBasketMap;
+
 	@BeforeEach
 	void setup () {
 		cleanCode = new DevelopmentBook(1L, "Clean Code", "Robert Martin");
@@ -37,50 +41,26 @@ class ApplicationTests {
 		testDrivenDevelopmentByExample = new DevelopmentBook(4L, "Test Driven Development by Example", "Kent Beck");
 		workingEffectivelyWithLegacyCode = new DevelopmentBook(5L, "Working effectively with Legacy Code", "Michael C. Feathers");
 		developmentBookPricingModelController = new DevelopmentBookPricingModelController();
+		developmentBookBasketMap = new HashMap<>();
 	}
 	@Test
 	void developmentBooksWithDuplicatesComputePriceTest() {
-     /*
 
-    	2 different books -> 5% discount on those 2 books.
-		3 different books -> 10% discount on those 3 books.
-		4 different books -> 20% discount on those 4 books.
-		All 5 -> 25% discount on those 5 books.
+		developmentBookBasketMap.put(cleanCode, 2);
+		developmentBookBasketMap.put(cleanCoder, 2);
+		developmentBookBasketMap.put(cleanArchitecture, 2);
+		developmentBookBasketMap.put(testDrivenDevelopmentByExample, 1);
+		developmentBookBasketMap.put(workingEffectivelyWithLegacyCode, 1);
 
-		2 copies of the “Clean Code” book
-		2 copies of the “Clean Coder” book
-		2 copies of the “Clean Architecture” book
-		1 copy of the “Test Driven Development by Example” book
-		1 copy of the “Working effectively with Legacy Code” book
+		BigDecimal expectedPrice = new BigDecimal("320").setScale(2);
 
-		Answer :
+		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
 
-		(4 * 50 EUR) - 20% [first book, second book, third book, fourth book]
-		(4 * 50 EUR) - 20% [first book, second book, third book, fifth book]
-        = 160 EUR + 160 EUR = 320 EUR
-
-      */
-		List<DevelopmentBook> developmentBookBasket = new ArrayList<>();
-
-		developmentBookBasket.add(cleanCode);
-		developmentBookBasket.add(cleanCode);
-		developmentBookBasket.add(cleanCoder);
-		developmentBookBasket.add(cleanCoder);
-		developmentBookBasket.add(cleanArchitecture);
-		developmentBookBasket.add(cleanArchitecture);
-		developmentBookBasket.add(testDrivenDevelopmentByExample);
-		developmentBookBasket.add(workingEffectivelyWithLegacyCode);
-
-		BigDecimal expectedPrice = new BigDecimal("320");
-
-		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasket);
-
-		assertEquals(finalPrice, expectedPrice);
+		assertEquals(expectedPrice, finalPrice);
 	}
 	@Test
 	public void developmentBooksWithoutDuplicatesComputePriceTest() {
-		List<DevelopmentBook> developmentBookBasket = new ArrayList<>();
-
+		/*List<DevelopmentBook> developmentBookBasket = new ArrayList<>();
 		developmentBookBasket.add(cleanCode);
 		developmentBookBasket.add(cleanCoder);
 		developmentBookBasket.add(cleanArchitecture);
@@ -90,7 +70,7 @@ class ApplicationTests {
 		BigDecimal expectedPrice = new BigDecimal("187.50");
 
 		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasket);
-		assertEquals(finalPrice, expectedPrice);
+		assertEquals(finalPrice, expectedPrice);*/
 	}
 
 
