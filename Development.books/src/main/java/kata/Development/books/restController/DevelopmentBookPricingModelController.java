@@ -52,10 +52,10 @@ public class DevelopmentBookPricingModelController {
                 finalPrice = finalPrice.add(developmentBookPrice);
             }
             case 2 -> {
-                finalPrice = finalPrice.add(developmentBookPrice.multiply(new BigDecimal(4)).subtract(percentage(developmentBookPrice.multiply(new BigDecimal(2)), new BigDecimal(5))));
+                finalPrice = finalPrice.add(developmentBookPrice.multiply(new BigDecimal(2)).subtract(percentage(developmentBookPrice.multiply(new BigDecimal(2)), new BigDecimal(5))));
             }
             case 3 -> {
-                finalPrice = finalPrice.add(developmentBookPrice.multiply(new BigDecimal(4)).subtract(percentage(developmentBookPrice.multiply(new BigDecimal(3)), new BigDecimal(10))));
+                finalPrice = finalPrice.add(developmentBookPrice.multiply(new BigDecimal(3)).subtract(percentage(developmentBookPrice.multiply(new BigDecimal(3)), new BigDecimal(10))));
             }
             case 4 -> {
                 finalPrice = finalPrice.add(developmentBookPrice.multiply(new BigDecimal(4)).subtract(percentage(developmentBookPrice.multiply(new BigDecimal(4)), new BigDecimal(20))));

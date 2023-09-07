@@ -52,7 +52,38 @@ class ApplicationTests {
 		developmentBookBasketMap.put(testDrivenDevelopmentByExample, 1);
 		developmentBookBasketMap.put(workingEffectivelyWithLegacyCode, 1);
 
-		BigDecimal expectedPrice = new BigDecimal("320").setScale(2);
+		BigDecimal expectedPrice = new BigDecimal("320.00");
+
+		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+
+		assertEquals(expectedPrice, finalPrice);
+	}
+
+	@Test
+	void developmentBooksWithDuplicatesComputePriceTest2() {
+
+		developmentBookBasketMap.put(cleanCode, 3);
+		developmentBookBasketMap.put(cleanCoder, 3);
+		developmentBookBasketMap.put(cleanArchitecture, 3);
+		developmentBookBasketMap.put(testDrivenDevelopmentByExample, 2);
+		developmentBookBasketMap.put(workingEffectivelyWithLegacyCode, 1);
+
+		BigDecimal expectedPrice = new BigDecimal("482.50");
+
+		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+
+		assertEquals(expectedPrice, finalPrice);
+	}
+
+	@Test
+	void developmentBooksWithDuplicatesComputePriceTest3() {
+
+		developmentBookBasketMap.put(cleanCode, 3);
+		developmentBookBasketMap.put(cleanCoder, 3);
+		developmentBookBasketMap.put(testDrivenDevelopmentByExample, 2);
+		developmentBookBasketMap.put(workingEffectivelyWithLegacyCode, 1);
+
+		BigDecimal expectedPrice = new BigDecimal("390.00");
 
 		BigDecimal finalPrice = developmentBookPricingModelController.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
 
