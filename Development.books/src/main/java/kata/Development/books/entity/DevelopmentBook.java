@@ -1,7 +1,7 @@
 package kata.Development.books.entity;
 
 public class DevelopmentBook {
-    private Long id;
+    private Integer id;
 
     private String title;
 
@@ -23,7 +23,7 @@ public class DevelopmentBook {
         this.author = author;
     }
 
-    public DevelopmentBook (Long id, String title, String author) {
+    public DevelopmentBook (Integer id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
