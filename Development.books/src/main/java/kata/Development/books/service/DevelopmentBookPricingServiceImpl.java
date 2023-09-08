@@ -81,14 +81,24 @@ public class DevelopmentBookPricingServiceImpl {
 
     private Map<Integer, Integer> convertSringMapToIntegerMap (Map<String, String> developmentBookBasketMap) {
         Map<Integer, Integer> convertedMap = new HashMap<>();
-        if (developmentBookBasketMap != null && developmentBookBasketMap.size() < 6) {
-            for (Map.Entry<String,String> i : developmentBookBasketMap.entrySet()) {
-                Integer id = Integer.parseInt(i.getKey());
-                Integer quantity = Integer.parseInt(i.getValue());
-                convertedMap.put(id, quantity);
+        if (developmentBookBasketMap != null && !developmentBookBasketMap.isEmpty()) {
+            try {
+                for (Map.Entry<String, String> i : developmentBookBasketMap.entrySet()) {
+                    Integer id = Integer.parseInt(i.getKey());
+                    Integer quantity = Integer.parseInt(i.getValue());
+                    if (id <= 0 || id > 5) {
+                        System.out.println("Development book with id " + id + " not found in the system.");
+                    } else if (quantity < 0) {
+                        System.out.println("This entry " + id + ":" + quantity + " will be discarded as operation is not possible with negative quantity.");
+                    } else {
+                        convertedMap.put(id, quantity);
+                    }
+                }
+            } catch (NumberFormatException e) {
+                throw e;
             }
-
         }
         return convertedMap;
     }
+
 }
