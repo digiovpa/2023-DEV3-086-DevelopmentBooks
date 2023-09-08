@@ -53,7 +53,8 @@ class ApplicationTests {
 		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("320.00");
-		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+		Map<Integer, Integer> convertedMap = developmentBookPricingService.convertDevelopmentBookBasketMapToIntegerMap(developmentBookBasketMap);
+		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(convertedMap);
 
 		assertEquals(expectedPrice, finalPrice);
 	}
@@ -68,7 +69,8 @@ class ApplicationTests {
 		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("482.50");
-		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+		Map<Integer, Integer> convertedMap = developmentBookPricingService.convertDevelopmentBookBasketMapToIntegerMap(developmentBookBasketMap);
+		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(convertedMap);
 
 		assertEquals(expectedPrice, finalPrice);
 	}
@@ -82,7 +84,8 @@ class ApplicationTests {
 		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("390.00");
-		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+		Map<Integer, Integer> convertedMap = developmentBookPricingService.convertDevelopmentBookBasketMapToIntegerMap(developmentBookBasketMap);
+		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(convertedMap);
 
 		assertEquals(expectedPrice, finalPrice);
 	}
@@ -95,8 +98,11 @@ class ApplicationTests {
 		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("187.50");
-		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+		Map<Integer, Integer> convertedMap = developmentBookPricingService.convertDevelopmentBookBasketMapToIntegerMap(developmentBookBasketMap);
+		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(convertedMap);
 
 		assertEquals(expectedPrice, finalPrice);
 	}
+
+
 }

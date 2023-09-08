@@ -7,8 +7,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.logging.Logger;
+
 @Service
 public class DevelopmentBookPricingServiceImpl {
+
 
     public BigDecimal computeDevelopmentBookBasketPrice (final Map<Integer, Integer> developmentBookBasketMap) {
         return evaluateDevelopmentBookBasketPrice(developmentBookBasketMap);
@@ -70,5 +73,22 @@ public class DevelopmentBookPricingServiceImpl {
             }
         }
         return finalPrice;
+    }
+
+    public Map<Integer, Integer> convertDevelopmentBookBasketMapToIntegerMap (Map<String, String> developmentBookBasketMap) {
+        return convertSringMapToIntegerMap(developmentBookBasketMap);
+    }
+
+    private Map<Integer, Integer> convertSringMapToIntegerMap (Map<String, String> developmentBookBasketMap) {
+        Map<Integer, Integer> convertedMap = new HashMap<>();
+        if (developmentBookBasketMap != null && developmentBookBasketMap.size() < 6) {
+            for (Map.Entry<String,String> i : developmentBookBasketMap.entrySet()) {
+                Integer id = Integer.parseInt(i.getKey());
+                Integer quantity = Integer.parseInt(i.getValue());
+                convertedMap.put(id, quantity);
+            }
+
+        }
+        return convertedMap;
     }
 }
