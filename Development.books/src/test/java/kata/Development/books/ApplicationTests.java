@@ -1,21 +1,20 @@
 package kata.Development.books;
 
 import kata.Development.books.entity.DevelopmentBook;
-import kata.Development.books.restController.DevelopmentBookPricingModelController;
 import kata.Development.books.service.DevelopmentBookPricingServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ApplicationTests {
@@ -32,7 +31,7 @@ class ApplicationTests {
 
 	private DevelopmentBookPricingServiceImpl developmentBookPricingService;
 
-	private Map<Integer, Integer> developmentBookBasketMap;
+	private Map<String, String> developmentBookBasketMap;
 
 	@BeforeEach
 	void setup () {
@@ -47,14 +46,13 @@ class ApplicationTests {
 	@Test
 	void developmentBooksWithDuplicatesComputePriceTest() {
 
-		developmentBookBasketMap.put(1, 2);
-		developmentBookBasketMap.put(2, 2);
-		developmentBookBasketMap.put(3, 2);
-		developmentBookBasketMap.put(4, 1);
-		developmentBookBasketMap.put(5, 1);
+		developmentBookBasketMap.put("1", "2");
+		developmentBookBasketMap.put("2", "2");
+		developmentBookBasketMap.put("3", "2");
+		developmentBookBasketMap.put("4", "1");
+		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("320.00");
-
 		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
 
 		assertEquals(expectedPrice, finalPrice);
@@ -63,14 +61,13 @@ class ApplicationTests {
 	@Test
 	void developmentBooksWithDuplicatesComputePriceTest2() {
 
-		developmentBookBasketMap.put(1, 3);
-		developmentBookBasketMap.put(2, 3);
-		developmentBookBasketMap.put(3, 3);
-		developmentBookBasketMap.put(4, 2);
-		developmentBookBasketMap.put(5, 1);
+		developmentBookBasketMap.put("1", "3");
+		developmentBookBasketMap.put("2", "3");
+		developmentBookBasketMap.put("3", "3");
+		developmentBookBasketMap.put("4", "2");
+		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("482.50");
-
 		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
 
 		assertEquals(expectedPrice, finalPrice);
@@ -79,31 +76,27 @@ class ApplicationTests {
 	@Test
 	void developmentBooksWithDuplicatesComputePriceTest3() {
 
-		developmentBookBasketMap.put(1, 3);
-		developmentBookBasketMap.put(2, 3);
-		developmentBookBasketMap.put(4, 2);
-		developmentBookBasketMap.put(5, 1);
+		developmentBookBasketMap.put("1", "3");
+		developmentBookBasketMap.put("2", "3");
+		developmentBookBasketMap.put("4", "2");
+		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("390.00");
-
 		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
 
 		assertEquals(expectedPrice, finalPrice);
 	}
 	@Test
 	public void developmentBooksWithoutDuplicatesComputePriceTest() {
-		developmentBookBasketMap.put(1, 1);
-		developmentBookBasketMap.put(2, 1);
-		developmentBookBasketMap.put(3, 1);
-		developmentBookBasketMap.put(4, 1);
-		developmentBookBasketMap.put(5, 1);
+		developmentBookBasketMap.put("1", "1");
+		developmentBookBasketMap.put("2", "1");
+		developmentBookBasketMap.put("3", "1");
+		developmentBookBasketMap.put("4", "1");
+		developmentBookBasketMap.put("5", "1");
 
 		BigDecimal expectedPrice = new BigDecimal("187.50");
-
 		BigDecimal finalPrice = developmentBookPricingService.computeDevelopmentBookBasketPrice(developmentBookBasketMap);
+
 		assertEquals(expectedPrice, finalPrice);
 	}
-
-
-
 }
