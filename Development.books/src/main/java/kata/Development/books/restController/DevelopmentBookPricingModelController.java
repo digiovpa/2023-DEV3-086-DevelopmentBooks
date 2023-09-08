@@ -12,7 +12,7 @@ public class DevelopmentBookPricingModelController {
     @GetMapping("/compute-pricing")
     private BigDecimal getDevelopmentBooksPricing (@RequestParam Map<String, String> developmentBookBasketMap ) {
         DevelopmentBookPricingServiceImpl developmentBookPricingService = new DevelopmentBookPricingServiceImpl();
-        final Map<Integer, Integer> convertedMap = new HashMap<>();
+        final Map<Integer, Integer> convertedMap = developmentBookPricingService.convertDevelopmentBookBasketMapToIntegerMap(developmentBookBasketMap);
         return developmentBookPricingService.computeDevelopmentBookBasketPrice(convertedMap);
     }
 
